@@ -1,1 +1,1 @@
-# CNBot
+# CNBot version 1.0.0
