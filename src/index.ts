@@ -5,7 +5,7 @@ import { USERNAME, PASSWORD, ADMIN, BANLIST } from "./secrets";
 import * as fs from "fs";
 
 // To reduce loglevel, change it here
-SetConsoleOutput(LogLevel.DEBUG);
+SetConsoleOutput(LogLevel.INFO);
 
 //#region Logging into files
 const time = new Date();

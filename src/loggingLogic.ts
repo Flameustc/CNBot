@@ -94,7 +94,7 @@ export class LoggingLogic extends LogicBase {
 			case "ItemAdd": {
 				if (event.initial) return;
 				const source = event.character === event.source ? "" : ` from ${event.source.Name} (${event.source.MemberNumber})`;
-				logger.info(
+				logger.verbose(
 					`ItemAdd for ${event.character.Name} (${event.character.MemberNumber})${source}: ${event.item.Group}:${event.item.Name}`
 				);
 				break;
@@ -102,20 +102,20 @@ export class LoggingLogic extends LogicBase {
 			case "ItemChange": {
 				if (event.initial) return;
 				const source = event.character === event.source ? "" : ` from ${event.source.Name} (${event.source.MemberNumber})`;
-				logger.info(
+				logger.verbose(
 					`ItemChange for ${event.character.Name} (${event.character.MemberNumber})${source}: ${event.item.Group}:${event.item.Name}`
 				);
 				break;
 			}
 			case "ItemRemove": {
 				const source = event.character === event.source ? "" : ` from ${event.source.Name} (${event.source.MemberNumber})`;
-				logger.info(
+				logger.verbose(
 					`ItemRemove for ${event.character.Name} (${event.character.MemberNumber})${source}: ${event.item.Group}:${event.item.Name}`
 				);
 				break;
 			}
 			case "PoseChanged":
-				logger.info(`PoseChanged for ${event.character.Name}: ${event.character.Pose.map(P => P.Name)}`);
+				logger.verbose(`PoseChanged for ${event.character.Name}: ${event.character.Pose.map(P => P.Name)}`);
 				break;
 			case "SafewordUsed":
 				logger.alert(`Character ${event.character.Name} used swafeword! (full release: ${event.release})`);
