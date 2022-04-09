@@ -38,10 +38,10 @@ async function run() {
 	// To work properly bot *needs* to be room admin!
 	await conn.ChatRoomJoinOrCreate({
 		Name: "CN",
-		Description: "姑苏城外寒山寺，夜半钟声到客船",
+		Description: "美人常晏起，照影弄流沫",
 		Background: "Yacht1",
 		Limit: 10,
-		Private: true,
+		Private: false,
 		Locked: false,
 		Admin: [conn.Player.MemberNumber, ...ADMIN],
 		Ban: [...BANLIST],

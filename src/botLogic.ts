@@ -1,11 +1,15 @@
 import { logger } from "bondage-club-bot-api";
 import { LoggingLogic } from "./loggingLogic";
+import { ADMIN, FORBIDDENWORDS } from "./secrets";
 
 // Note:
 // For more examples of events see src/loggingLogic.ts
 // To use any more events, go to that file and copy the function, including the comment above it.
 
 export class BotLogic extends LoggingLogic {
+
+	private forbiddenWords: string[] = [...FORBIDDENWORDS];
+
 	/**
 	 * When character enters the room
 	 * @param connection Originating connection
@@ -29,8 +33,27 @@ export class BotLogic extends LoggingLogic {
 		if (message.Type === "Whisper" && message.Content.startsWith("!")) {
 			const cmd = message.Content.split(" ");
 			if (cmd[0] === "!help") {
-				sender.Tell("Whisper", "CNBot version 1.0.0");
+				sender.Tell("Whisper", "CNBot version 1.1.0");
 			}
+			if (cmd[0] === "!forbid") {
+				if (cmd.length >= 3 && cmd[1] === "add") {
+					this.forbiddenWords.push(`${message.Content.substring(12)}`);
+				} else if (cmd.length === 3 && cmd[1] === "del" && !isNaN(Number(cmd[2]))) {
+					this.forbiddenWords.splice(Number(cmd[2]), 1);
+				} else {
+					let content: string[] = [];
+					content = [
+						"!forbid add <屏蔽词> 添加新屏蔽词",
+						"!forbid del <N> 删除第N条屏蔽词（序号从0开始）",
+						"当前屏蔽词："
+					];
+					sender.Tell("Chat", content.join("\n") + "\n" + this.forbiddenWords.join("\n\n"));
+				}
+			}
+		}
+
+		if (!ADMIN.includes(sender.MemberNumber) && this.forbiddenWords.some(w => message.Content.includes(w))) {
+			void sender.Ban();
 		}
 	}
 
