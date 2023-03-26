@@ -1,6 +1,6 @@
 {
   "name": "cn-bot",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "description": "CN bot for Bondage Club",
   "private": true,
   "scripts": {
@@ -17,7 +17,7 @@
   "dependencies": {
     "@types/lodash": "^4.14.178",
     "@types/node": "^17.0.21",
-    "bondage-club-bot-api": "./bondage-club-bot-api-v0.3.4.tgz",
+    "bondage-club-bot-api": "./bondage-club-bot-api-v0.5.2.tgz",
     "lodash": "^4.17.20"
   },
   "devDependencies": {

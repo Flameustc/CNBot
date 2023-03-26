@@ -1,6 +1,6 @@
 import { AssetGet, Connect, Init, logger, AddFileOutput, LogLevel, SetConsoleOutput, logConfig } from "bondage-club-bot-api";
 import { BotLogic } from "./botLogic";
-import { USERNAME, PASSWORD, ADMIN, BANLIST } from "./secrets";
+import { USERNAME, PASSWORD, ROOM_ADMIN, ROOM_BANLIST } from "./secrets";
 
 import * as fs from "fs";
 
@@ -24,7 +24,7 @@ let botLogic: BotLogic | null = null;
 async function run() {
 	conn = await Connect(USERNAME, PASSWORD);
 
-	botLogic = new BotLogic();
+	botLogic = new BotLogic("./data/data.json");
 	conn.logic = botLogic;
 
 	// These just expose some things in debug console
@@ -38,13 +38,13 @@ async function run() {
 	// To work properly bot *needs* to be room admin!
 	await conn.ChatRoomJoinOrCreate({
 		Name: "CN",
-		Description: "美人常晏起，照影弄流沫",
+		Description: "BOT的个人简介中有新手教学指引以及BC社区公约，欢迎新人阅读和提问",
 		Background: "Yacht1",
 		Limit: 10,
 		Private: false,
 		Locked: false,
-		Admin: [conn.Player.MemberNumber, ...ADMIN],
-		Ban: [...BANLIST],
+		Admin: [conn.Player.MemberNumber, ...ROOM_ADMIN],
+		Ban: [...ROOM_BANLIST],
 		Game: "",
 		BlockCategory: []
 	});
